@@ -1,5 +1,8 @@
 package thread;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * 例子：创建三个窗口卖票，总票数为100张.使用实现Runnable接口的方式
  * 存在线程的安全问题，待解决。
@@ -10,22 +13,40 @@ package thread;
 class Window1 implements Runnable{
 
     private int ticket = 100;
+    private ReentrantLock lock = new ReentrantLock();
+    private Condition condition;
 
     @Override
-    public void run() {
+    public void  run() {
+        condition = lock.newCondition();
         while(true){
-            if(ticket > 0){
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            lock.lock();
+            try {
+                if (ticket > 0) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+//                    while (ticket > 10) {
+//                        try {
+//                            condition.await();
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+                    System.out.println(Thread.currentThread().getName() + ":卖票，票号为：" + ticket);
+                    ticket--;
+//                    condition.signalAll();
+                } else {
+                    break;
                 }
-                System.out.println(Thread.currentThread().getName() + ":卖票，票号为：" + ticket);
-                ticket--;
-            }else{
-                break;
+            }
+            finally {
+                lock.unlock();
             }
         }
+
     }
 }
 
