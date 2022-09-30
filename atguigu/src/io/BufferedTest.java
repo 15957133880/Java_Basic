@@ -1,6 +1,6 @@
 package io;
 
-//import org.junit.Test;
+import org.junit.Test;
 
 import java.io.*;
 
@@ -26,19 +26,19 @@ public class BufferedTest {
     /*
     实现非文本文件的复制
      */
-//    @Test
+    @Test
     public void BufferedStreamTest() throws FileNotFoundException {
         BufferedInputStream bis = null;
         BufferedOutputStream bos = null;
 
         try {
             //1.造文件
-            File srcFile = new File("爱情与友情.jpg");
-            File destFile = new File("爱情与友情3.jpg");
+            File srcFile = new File("src\\io\\data\\爱情与友情.jpg");
+            File destFile = new File("src\\io\\data\\爱情与友情2.jpg");
             //2.造流
             //2.1 造节点流
             FileInputStream fis = new FileInputStream((srcFile));
-            FileOutputStream fos = new FileOutputStream(destFile);
+            FileOutputStream fos = new FileOutputStream(destFile, true);
             //2.2 造缓冲流
             bis = new BufferedInputStream(fis);
             bos = new BufferedOutputStream(fos);
@@ -132,7 +132,7 @@ public class BufferedTest {
         }
     }
 
-//    @Test
+    @Test
     public void testCopyFileWithBuffered(){
         long start = System.currentTimeMillis();
 
@@ -153,7 +153,7 @@ public class BufferedTest {
     使用BufferedReader和BufferedWriter实现文本文件的复制
 
      */
-//    @Test
+    @Test
     public void testBufferedReaderBufferedWriter(){
         BufferedReader br = null;
         BufferedWriter bw = null;

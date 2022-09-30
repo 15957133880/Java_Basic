@@ -26,11 +26,11 @@ import java.io.*;
 public class FileReaderWriterTest {
 
     public static void main(String[] args) {
-        File file = new File("hello.txt");//相较于当前工程
+        File file = new File("atguigu\\src\\io\\data\\hello.txt");//相较于当前工程
         System.out.println(file.getAbsolutePath());
 
-        File file1 = new File("day09\\hello.txt");
-        System.out.println(file1.getAbsolutePath());
+//        File file1 = new File("day09\\hello.txt");
+//        System.out.println(file1.getAbsolutePath());
     }
 
     /*
@@ -47,7 +47,8 @@ public class FileReaderWriterTest {
         FileReader fr = null;
         try {
             //1.实例化File类的对象，指明要操作的文件
-            File file = new File("hello.txt");//相较于当前Module
+            File file = new File("src\\io\\data\\hello.txt");//相较于当前Module
+//            System.out.println(file.getAbsoluteFile());
             //2.提供具体的流
             fr = new FileReader(file);
 
@@ -93,14 +94,14 @@ public class FileReaderWriterTest {
         FileReader fr = null;
         try {
             //1.File类的实例化
-            File file = new File("hello.txt");
+            File file = new File("src\\io\\data\\hello.txt");
 
             //2.FileReader流的实例化
             fr = new FileReader(file);
 
             //3.读入的操作
             //read(char[] cbuf):返回每次读入cbuf数组中的字符的个数。如果达到文件末尾，返回-1
-            char[] cbuf = new char[5];
+            char[] cbuf = new char[30];
             int len;
             while((len = fr.read(cbuf)) != -1){
                 //方式一：
@@ -117,8 +118,9 @@ public class FileReaderWriterTest {
 //                String str = new String(cbuf);
 //                System.out.print(str);
                 //正确的写法
+                System.out.println("len: " + len);
                 String str = new String(cbuf,0,len);
-                System.out.print(str);
+                System.out.println(str);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -152,14 +154,15 @@ public class FileReaderWriterTest {
         FileWriter fw = null;
         try {
             //1.提供File类的对象，指明写出到的文件
-            File file = new File("hello1.txt");
+            File file = new File("src\\io\\data\\hello.txt");
 
             //2.提供FileWriter的对象，用于数据的写出
-            fw = new FileWriter(file,false);
+            fw = new FileWriter(file,true);
 
             //3.写出的操作
-            fw.write("I have a dream!\n");
-            fw.write("you need to have a dream!");
+
+            fw.write("\nappend1\n");
+            fw.write("append2");
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -183,8 +186,8 @@ public class FileReaderWriterTest {
         FileWriter fw = null;
         try {
             //1.创建File类的对象，指明读入和写出的文件
-            File srcFile = new File("hello.txt");
-            File destFile = new File("hello2.txt");
+            File srcFile = new File("src\\io\\data\\hello.txt");
+            File destFile = new File("src\\io\\data\\hello2.txt");
 
             //不能使用字符流来处理图片等字节数据
 //            File srcFile = new File("爱情与友情.jpg");
@@ -193,11 +196,11 @@ public class FileReaderWriterTest {
 
             //2.创建输入流和输出流的对象
             fr = new FileReader(srcFile);
-            fw = new FileWriter(destFile);
+            fw = new FileWriter(destFile, true);
 
 
             //3.数据的读入和写出操作
-            char[] cbuf = new char[5];
+            char[] cbuf = new char[50];
             int len;//记录每次读入到cbuf数组中的字符的个数
             while((len = fr.read(cbuf)) != -1){
                 //每次写出len个字符

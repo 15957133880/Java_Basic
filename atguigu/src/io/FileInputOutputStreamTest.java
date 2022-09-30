@@ -1,6 +1,6 @@
 package io;
 
-//import org.junit.Test;
+import org.junit.Test;
 
 import java.io.*;
 
@@ -19,18 +19,18 @@ import java.io.*;
 public class FileInputOutputStreamTest {
 
     //使用字节流FileInputStream处理文本文件，可能出现乱码。
-//    @Test
+    @Test
     public void testFileInputStream() {
         FileInputStream fis = null;
         try {
             //1. 造文件
-            File file = new File("hello.txt");
+            File file = new File("src\\io\\data\\hello.txt");
 
             //2.造流
             fis = new FileInputStream(file);
 
             //3.读数据
-            byte[] buffer = new byte[5];
+            byte[] buffer = new byte[50];
             int len;//记录每次读取的字节的个数
             while((len = fis.read(buffer)) != -1){
 
@@ -57,25 +57,30 @@ public class FileInputOutputStreamTest {
     /*
     实现对图片的复制操作
      */
-//    @Test
+    @Test
     public void testFileInputOutputStream()  {
         FileInputStream fis = null;
         FileOutputStream fos = null;
         try {
             //
-            File srcFile = new File("爱情与友情.jpg");
-            File destFile = new File("爱情与友情2.jpg");
+            File srcFile = new File("src\\io\\data\\爱情与友情.jpg");
+
+            File destFile = new File("src\\io\\data\\爱情与友情1.jpg");
+//            System.out.println("********" + destFile.exists());
 
             //
             fis = new FileInputStream(srcFile);
             fos = new FileOutputStream(destFile);
 
             //复制的过程
+//            System.out.println("********" + destFile.exists());
+
             byte[] buffer = new byte[5];
             int len;
             while((len = fis.read(buffer)) != -1){
                 fos.write(buffer,0,len);
             }
+//            System.out.println("********" + destFile.exists());
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -144,7 +149,7 @@ public class FileInputOutputStreamTest {
 
     }
 
-//    @Test
+    @Test
     public void testCopyFile(){
 
         long start = System.currentTimeMillis();
