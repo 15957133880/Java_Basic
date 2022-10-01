@@ -39,24 +39,23 @@ public class InetAddressTest {
 
         try {
             //File file = new File("hello.txt");
-            InetAddress inet1 = InetAddress.getByName("192.168.10.14");
-
+            InetAddress inet1 = InetAddress.getByName("192.168.0.148");
             System.out.println(inet1);
 
             InetAddress inet2 = InetAddress.getByName("www.atguigu.com");
             System.out.println(inet2);
-
-            InetAddress inet3 = InetAddress.getByName("127.0.0.1");
-            System.out.println(inet3);
+//
+//            InetAddress inet3 = InetAddress.getByName("127.0.0.1");
+//            System.out.println(inet3);
 
             //获取本地ip
             InetAddress inet4 = InetAddress.getLocalHost();
-            System.out.println(inet4);
+            System.out.println("local host:  " + inet4);
 
             //getHostName()
-            System.out.println(inet2.getHostName());
+            System.out.println("Inet1.hostName:  " + inet1.getHostName());
             //getHostAddress()
-            System.out.println(inet2.getHostAddress());
+            System.out.println("Inet1.hostAddress:  " + inet1.getHostAddress());
 
         } catch (UnknownHostException e) {
             e.printStackTrace();
