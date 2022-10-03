@@ -22,6 +22,7 @@ public class FileInputOutputStreamTest {
     @Test
     public void testFileInputStream() {
         FileInputStream fis = null;
+
         try {
             //1. 造文件
             File file = new File("src\\io\\data\\hello.txt");

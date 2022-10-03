@@ -22,7 +22,7 @@ import jdbc.utils.JDBCUtils;
  *
  */
 public class CustomerForQuery {
-	
+
 	@Test
 	public void testQueryForCustomers(){
 		String sql = "select id,name,birth,email from customers where id = ?";
@@ -41,6 +41,7 @@ public class CustomerForQuery {
 	 * @throws Exception 
 	 * @date 上午10:23:40
 	 */
+	//针对不同的表的通用查询操作
 	public Customer queryForCustomers(String sql,Object...args){
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -88,8 +89,8 @@ public class CustomerForQuery {
 		
 		
 	}
-	
-	
+
+
 	@Test
 	public void testQuery1() {
 		Connection conn = null;
@@ -97,9 +98,10 @@ public class CustomerForQuery {
 		ResultSet resultSet = null;
 		try {
 			conn = JDBCUtils.getConnection();
-			String sql = "select id,name,email,birth from customers where id = ?";
+			String sql = "select cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip, cust_country," +
+					"cust_contact, cust_email from customers where cust_id = ?";
 			ps = conn.prepareStatement(sql);
-			ps.setObject(1, 1);
+			ps.setObject(1, 10001);
 			
 			//执行,并返回结果集
 			resultSet = ps.executeQuery();
@@ -107,18 +109,24 @@ public class CustomerForQuery {
 			if(resultSet.next()){//next():判断结果集的下一条是否有数据，如果有数据返回true,并指针下移；如果返回false,指针不会下移。
 				
 				//获取当前这条数据的各个字段值
-				int id = resultSet.getInt(1);
-				String name = resultSet.getString(2);
-				String email = resultSet.getString(3);
-				Date birth = resultSet.getDate(4);
-				
+				int cust_id = resultSet.getInt(1);
+				String cust_name = resultSet.getString(2);
+				String cust_address = resultSet.getString(3);
+				String cust_city = resultSet.getString(4);
+				String cust_state = resultSet.getString(5);
+				String cust_zip = resultSet.getString(6);
+				String cust_country = resultSet.getString(7);
+				String cust_contact = resultSet.getString(8);
+				String cust_email = resultSet.getString(9);
+
 			//方式一：
 //			System.out.println("id = " + id + ",name = " + name + ",email = " + email + ",birth = " + birth);
 				
 			//方式二：
 //			Object[] data = new Object[]{id,name,email,birth};
 				//方式三：将数据封装为一个对象（推荐）
-				Customer customer = new Customer(id, name, email, birth);
+				Customer customer = new Customer(cust_id, cust_name, cust_address, cust_city, cust_state, cust_zip,
+						cust_country, cust_contact, cust_email);
 				System.out.println(customer);
 				
 			}
