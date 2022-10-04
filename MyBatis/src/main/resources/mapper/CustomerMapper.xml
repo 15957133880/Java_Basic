@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    namespace
+-->
+<mapper namespace="mapper.CustomerMapper">
+
+    <resultMap id="CustomerResultMap" type="bean.Customer">
+        <result column="cust_name" property="cust_name" />
+    </resultMap>
+
+
+
+    <select id="selectAll" resultMap="CustomerResultMap">
+        select * from customers;
+    </select>
+
+    <select id="selectByCustId" resultMap="CustomerResultMap">
+        select * from customers where cust_id = #{id};
+    </select>
+
+<!--    <select id="selectByCondition" resultMap="CustomerResultMap">-->
+<!--        select * from customers-->
+<!--        where cust_name like #{cust_name} or-->
+<!--        cust_state like #{cust_state};-->
+<!--    </select>-->
+
+    <select id="selectByCondition" resultMap="CustomerResultMap">
+        select * from customers
+        <where>
+            <if test="cust_name != null">
+                cust_name like #{cust_name}
+            </if>
+            <if test="cust_state != null and cust_state != ''">
+                or cust_state like #{cust_state};
+            </if>
+        </where>
+    </select>
+
+    <select id="selectBySingleCondition" resultMap="CustomerResultMap">
+        select * from customers
+        <where>
+            <choose>
+                <when test="cust_name != null">
+                    cust_name like #{cust_name}
+                </when>
+
+                <when test="cust_state != null">
+                </when>
+            </choose>
+        </where>
+    </select>
+
+    <insert id="add" useGeneratedKeys="true" keyProperty="cust_id">
+        insert into customers (cust_name, cust_state)
+        values (#{cust_name}, #{cust_state});
+    </insert>
+
+    <update id="update">
+        update customers
+        <set>
+            <if test="cust_name != null ">
+                cust_name = #{cust_name},
+            </if>
+
+            <if test="cust_state != null ">
+                cust_state = #{cust_state}
+            </if>
+
+        </set>
+        where cust_id = #{cust_id};
+    </update>
+
+    <delete id="deleteByCustId">
+        delete from customers
+        where cust_id = #{cust_id};
+    </delete>
+
+    <delete id="deleteByCustNames">
+        delete from customers
+        where cust_name in (
+            <foreach collection="cust_names" item="cust_name" separator=",">
+                #{cust_name}
+            </foreach>
+        );
+        
+        
+    </delete>
+</mapper>
