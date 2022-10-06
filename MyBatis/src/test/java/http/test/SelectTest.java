@@ -1,4 +1,4 @@
-package com.itheima.test;
+package http.test;
 
 import bean.Customer;
 import mapper.CustomerMapper;

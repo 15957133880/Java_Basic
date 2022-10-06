@@ -1,12 +1,10 @@
-package com.itheima;
-
-import sun.misc.IOUtils;
+package http;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
+
 /*
     自定义服务器
  */
@@ -71,7 +69,7 @@ class Handler extends Thread {
             // 发送成功响应:
 
             //读取html文件，转换为字符串
-            BufferedReader br = new BufferedReader(new FileReader("http/html/a.html"));
+            BufferedReader br = new BufferedReader(new FileReader("/Java_Web/html/a.html"));
             StringBuilder data = new StringBuilder();
             String line = null;
             while ((line = br.readLine()) != null){
