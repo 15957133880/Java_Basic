@@ -44,7 +44,6 @@ Optional.ofNullable(T t)：t可以为null
 
     }
 
-
     public String getGirlName(Boy boy){
         return boy.getGirl().getName();
     }
